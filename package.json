@@ -1,0 +1,27 @@
+{
+  "name": "calendar_electron_hilarion_badet",
+  "version": "1.0.0",
+  "description": "utiliser Typescript (optionnel)\r Réaliser une page qui affiche le calendrier mois par mois avec possibilité de changer de mois\r Afficher les évènements stockés en BDD dans l'affichage du calendrier\r Faire la page de détail évènement\r Faire la page de nouvel évènement\r Faire la page de modif évènement\r Gérer le bouton de suppression d'évènement\r Sauvegarder un évènement en ics (optionnel)\r Charger un évènement depuis un fichier ics et permettre de l'enregistrer en BDD (optionnel)",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "npm run build && electron .",
+    "watch": "tsc -w",
+    "build": "tsc && npm run copy-html",
+    "copy-html": "copyfiles -u 1 src/*.html dist/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "copyfiles": "^2.4.1",
+    "electron": "^31.3.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.2",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20"
+  }
+}
