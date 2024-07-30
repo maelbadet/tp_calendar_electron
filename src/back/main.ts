@@ -16,13 +16,13 @@ async function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, '../preload.js'),
             contextIsolation: true,
-            nodeIntegration: true,  // Required for ipcRenderer and ipcMain
+            nodeIntegration: false,
         },
     });
 
-    mainWindow.loadFile(path.join(__dirname, 'index.html'));
+    mainWindow.loadFile(path.join(__dirname, '../index.html'));
 }
 
 app.on('ready', createWindow);
@@ -52,28 +52,27 @@ ipcMain.handle('fetch-events', async (event, month, year) => {
 
     return events;
 });
+ipcMain.handle('add-event', async (event, title, description, date) => {
+    const eventRepository = getRepository(Event);
+    const newEvent = new Event(title, description, date);
+    newEvent.title = title;
+    newEvent.description = description;
+    newEvent.date = date;
+    await eventRepository.save(newEvent);
+});
 
-// ipcMain.handle('add-event', async (event, title, description, date) => {
-//     const eventRepository = getRepository(Event);
-//     const newEvent = new Event(title, description, date);
-//     newEvent.title = title;
-//     newEvent.description = description;
-//     newEvent.date = date;
-//     await eventRepository.save(newEvent);
-// });
+ipcMain.handle('update-event', async (event, id, title, description, date) => {
+    const eventRepository = getRepository(Event);
+    const existingEvent = await eventRepository.findOne(id);
+    if (existingEvent) {
+        existingEvent.title = title;
+        existingEvent.description = description;
+        existingEvent.date = date;
+        await eventRepository.save(existingEvent);
+    }
+});
 
-// ipcMain.handle('update-event', async (event, id, title, description, date) => {
-//     const eventRepository = getRepository(Event);
-//     const existingEvent = await eventRepository.findOne(id);
-//     if (existingEvent) {
-//         existingEvent.title = title;
-//         existingEvent.description = description;
-//         existingEvent.date = date;
-//         await eventRepository.save(existingEvent);
-//     }
-// });
-
-// ipcMain.handle('delete-event', async (event, id) => {
-//     const eventRepository = getRepository(Event);
-//     await eventRepository.delete(id);
-// });
+ipcMain.handle('delete-event', async (event, id) => {
+    const eventRepository = getRepository(Event);
+    await eventRepository.delete(id);
+});

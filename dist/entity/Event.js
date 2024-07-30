@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Event = void 0;
 const typeorm_1 = require("typeorm");
 let Event = class Event {
-    // Constructor without parameters
     constructor(title, description, date) {
         if (title)
             this.title = title;
