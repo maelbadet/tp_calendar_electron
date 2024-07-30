@@ -3,20 +3,20 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Event {
     @PrimaryGeneratedColumn()
-    id?: number;
+    id!: number;
 
     @Column()
-    title: string;
+    title!: string;
 
     @Column()
-    description: string;
+    description!: string;
 
     @Column()
-    date: string;
+    date!: string;
 
-    constructor(title: string, description: string, date: string) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
+    constructor(title?: string, description?: string, date?: string) {
+        if (title) this.title = title;
+        if (description) this.description = description;
+        if (date) this.date = date;
     }
 }

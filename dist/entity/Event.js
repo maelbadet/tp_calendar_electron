@@ -12,10 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Event = void 0;
 const typeorm_1 = require("typeorm");
 let Event = class Event {
+    // Constructor without parameters
     constructor(title, description, date) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
+        if (title)
+            this.title = title;
+        if (description)
+            this.description = description;
+        if (date)
+            this.date = date;
     }
 };
 exports.Event = Event;
@@ -39,4 +43,3 @@ exports.Event = Event = __decorate([
     (0, typeorm_1.Entity)(),
     __metadata("design:paramtypes", [String, String, String])
 ], Event);
-//# sourceMappingURL=Event.js.map

@@ -2,7 +2,7 @@
   "name": "calendar_electron_hilarion_badet",
   "version": "1.0.0",
   "description": "utiliser Typescript (optionnel)\r Réaliser une page qui affiche le calendrier mois par mois avec possibilité de changer de mois\r Afficher les évènements stockés en BDD dans l'affichage du calendrier\r Faire la page de détail évènement\r Faire la page de nouvel évènement\r Faire la page de modif évènement\r Gérer le bouton de suppression d'évènement\r Sauvegarder un évènement en ics (optionnel)\r Charger un évènement depuis un fichier ics et permettre de l'enregistrer en BDD (optionnel)",
-  "main": "dist/main.js",
+  "main": "dist/back/main.js",
   "scripts": {
     "start": "npm run build && electron .",
     "watch": "tsc -w",
@@ -16,12 +16,26 @@
     "@types/node": "^22.0.0",
     "copyfiles": "^2.4.1",
     "electron": "^31.3.1",
+    "electron-reload": "^2.0.0-alpha.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "css-loader": "^4.3.0",
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.7",
+    "webpack": "^5.3.0",
+    "webpack-cli": "^4.1.0"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@types/fullcalendar": "^3.8.0",
+    "fullcalendar": "^6.1.15",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "@fullcalendar/list": "^6.1.10",
+    "@fullcalendar/timegrid": "^6.1.10"
   }
 }
