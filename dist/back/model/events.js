@@ -1,0 +1,58 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAllEvent = getAllEvent;
+exports.getEventById = getEventById;
+exports.addEvent = addEvent;
+exports.updateEvent = updateEvent;
+exports.deleteEvent = deleteEvent;
+const conn_js_1 = require("./conn.js");
+function getAllEvent() {
+    return new Promise((resolve, rej) => {
+        conn_js_1.conn.query('SELECT * FROM evenement', (err, res) => {
+            if (err)
+                rej(err);
+            else
+                resolve(res);
+        });
+    });
+}
+function getEventById(id) {
+    return new Promise((resolve, rej) => {
+        conn_js_1.conn.query('SELECT * FROM evenement WHERE id=?', [id], (err, res) => {
+            if (err)
+                rej(err);
+            else
+                resolve(res);
+        });
+    });
+}
+function addEvent(event) {
+    return new Promise((resolve, rej) => {
+        conn_js_1.conn.query('INSERT INTO evenement (title,description,created_at) VALUES (?,?,?)', [event.title, event.description, event.created_at], (err, res) => {
+            if (err)
+                rej(err);
+            else
+                resolve(res);
+        });
+    });
+}
+function updateEvent(event) {
+    return new Promise((resolve, rej) => {
+        conn_js_1.conn.query('UPDATE evenement SET title=?,description=?,updated_at=? WHERE id=?', [event.title, event.description, event.updated_at, event.id], (err, res) => {
+            if (err)
+                rej(err);
+            else
+                resolve(res);
+        });
+    });
+}
+function deleteEvent(event) {
+    return new Promise((resolve, rej) => {
+        conn_js_1.conn.query('UPDATE evenement SET deleted_at=? WHERE id=?', [event.deleted_at, event.id], (err, res) => {
+            if (err)
+                rej(err);
+            else
+                resolve(res);
+        });
+    });
+}

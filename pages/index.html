@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier Electron</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <h1>Calendrier Electron</h1>
+    <div>
+        <button id="prev-month">Mois Précédent</button>
+        <button id="next-month">Mois Suivant</button>
+    </div>
+    <div class="calendar">
+        <table id="calendar-table">
+            <thead>
+                <tr>
+                    <th>Dim</th>
+                    <th>Lun</th>
+                    <th>Mar</th>
+                    <th>Mer</th>
+                    <th>Jeu</th>
+                    <th>Ven</th>
+                    <th>Sam</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body">
+                <!-- Les jours du mois seront insérés ici -->
+            </tbody>
+        </table>
+    </div>
+    <div id="event-list" class="event-list">
+        <!-- Les événements seront affichés ici -->
+    </div>
+    <script src="../dist/front/event/renderer.js"></script>
+</body>
+
+</html>
