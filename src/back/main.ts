@@ -1,78 +1,29 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
-import * as path from 'path';
-import { createConnection, getRepository, Between } from 'typeorm';
-import { Event } from '../entity/Event';
+// Modules to control application life and create native browser window
+import { app, BrowserWindow, Menu } from 'electron'
+import { createWindow } from './utils/createWindow'
+import { windows } from './utils/windows'
+import './service/ipcService'
 
-async function createWindow() {
-    await createConnection({
-        type: 'sqlite',
-        database: './database.sqlite',
-        synchronize: true,
-        logging: true,
-        entities: [Event],
-    });
 
-    const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            preload: path.join(__dirname, '../preload.js'),
-            contextIsolation: true,
-            nodeIntegration: false,
-        },
-    });
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.whenReady().then(() => {
+    const win = createWindow()
+    windows.push(win)
+    app.on('activate', function () {
+        // On macOS it's common to re-create a window in the app when the
+        // dock icon is clicked and there are no other windows open.
+        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    })
+})
 
-    mainWindow.loadFile(path.join(__dirname, '../index.html'));
-}
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', function () {
+    if (process.platform !== 'darwin') app.quit()
+})
 
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
-
-app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
-    }
-});
-
-ipcMain.handle('fetch-events', async (event, month, year) => {
-    const eventRepository = getRepository(Event);
-    const startDate = `${year}-${('0' + (month + 1)).slice(-2)}-01`;
-    const endDate = `${year}-${('0' + (month + 1)).slice(-2)}-31`;
-
-    const events = await eventRepository.find({
-        where: {
-            date: Between(startDate, endDate)
-        }
-    });
-
-    return events;
-});
-ipcMain.handle('add-event', async (event, title, description, date) => {
-    const eventRepository = getRepository(Event);
-    const newEvent = new Event(title, description, date);
-    newEvent.title = title;
-    newEvent.description = description;
-    newEvent.date = date;
-    await eventRepository.save(newEvent);
-});
-
-ipcMain.handle('update-event', async (event, id, title, description, date) => {
-    const eventRepository = getRepository(Event);
-    const existingEvent = await eventRepository.findOne(id);
-    if (existingEvent) {
-        existingEvent.title = title;
-        existingEvent.description = description;
-        existingEvent.date = date;
-        await eventRepository.save(existingEvent);
-    }
-});
-
-ipcMain.handle('delete-event', async (event, id) => {
-    const eventRepository = getRepository(Event);
-    await eventRepository.delete(id);
-});
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
