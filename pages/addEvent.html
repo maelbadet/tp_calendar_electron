@@ -3,18 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <link href="../assets/css/style.css" rel="stylesheet">
-    <title>ajout d'un event</title>
+    <link href="../assets/css/addEvent.css" rel="stylesheet">
+    <title>Ajout d'un événement</title>
 </head>
 
 <body>
-    <h1>Ajout d'evenement'</h1>
-    <input type="text" id="title" placeholder="Entrez le nom de l'evenement"><br>
-    <input type="text" id="description" placeholder="Entrez la description"><br>
-    <input type="checkbox" id="allDay" placeholder="toute la journee"><br>
-    <input type="time" id="duration" placeholder="Entrez la duree"><br>
-    <button id="ajout">Ajout</button>
+    <form>
+        <h1>Ajout d'événement</h1>
+        <label for="title">Titre : </label>
+        <input type="text" id="title" name="title" placeholder="Entrez le nom de l'événement"><br>
+        <label for="description">description : </label>
+        <input type="text" id="description" name="description" placeholder="Entrez la description"><br>
+        <label>
+            <input type="checkbox" id="allDay"> Toute la journée
+        </label><br>
+        <label for="start">Heure de debut : </label>
+        <input type="datetime-local" id="start_at" name="start" placeholder="Entrez l'heure de debut"><br>
+        <label for="finish">Heure de fin : </label>
+        <input type="datetime-local" id="finish_at" name="finish" placeholder="Entrez l'heure de fin"><br>
+        <button type="button" id="ajout">Ajouter</button>
+    </form>
     <script src="../dist/front/addEvent/renderer.js" type="module"></script>
 </body>
 

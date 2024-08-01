@@ -1,24 +1,30 @@
-import { BrowserWindow, Menu } from "electron"
-import { join } from 'node:path'
-import { createWindow } from "../utils/createWindow"
-import { windows } from "../utils/windows"
+import { createWindow } from "../utils/createWindow";
+import { windows } from "../utils/windows";
 
 export const menuListeTpl: any = [
     {
-        label: "Fichier",
+        label: "Accueil",
+        click: () => createWindow(undefined, 'index.html') // redirection vers la page d'accueil
+    },
+    {
+        label: "Evenement",
         submenu: [
             {
-                label: "Ajout",
-                click: () => createWindow(windows[0], false)
-
+                label: "Ajouter",
+                click: () => createWindow(undefined, 'addEvent.html')
             },
             {
-                type: "separator"
+                label: "Modifier",
+                click: () => createWindow(undefined, 'editEvent.html')
             },
             {
-                label: "Quitter",
-                role: "quit"
+                label: "Supprimer",
+                click: () => createWindow(undefined, 'deleteEvent.html')
             }
         ]
+    },
+    {
+        label: "Quitter",
+        role: "quit"
     }
-]
+];

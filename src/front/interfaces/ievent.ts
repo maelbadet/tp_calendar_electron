@@ -1,11 +1,11 @@
 export interface iEvent {
+    id?: number;
     title: string;
     description: string;
-    start_at: Date;
-    finish_at: Date;
-    allDay: boolean;
-    created_at: Date;
-    updated_at: Date | null;
-    deleted_at: Date | null;
-    id?: number;
+    all_day: boolean;
+    start_at?: string;
+    finish_at?: string;
+    created_at: String;
+    updated_at?: Date;
+    deleted_at?: Date;
 }

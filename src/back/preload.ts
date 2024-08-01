@@ -10,7 +10,15 @@
 import { contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld('electron', {
-    ajout: (title: string, description: string, created_at: Date) => ipcRenderer.invoke('ajout-event', { title, description, created_at }),
+    ajout: (title: string, description: string, allDay: boolean, start_at: String, finish_at: String, created_at: String) => ipcRenderer.invoke('ajout-event',
+        {
+            title, description, allDay, start_at, finish_at, created_at
+        }),
+
     getAll: () => ipcRenderer.invoke('get-all-event'),
-    deleteEvent: (id: number, deleted_at: Date) => ipcRenderer.invoke('delete-event', { id, deleted_at })
+
+    deleteEvent: (id: number, deleted_at: Date) => ipcRenderer.invoke('delete-event',
+        {
+            id, deleted_at
+        })
 })

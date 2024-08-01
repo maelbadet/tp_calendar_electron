@@ -27,10 +27,10 @@ function getEventById(id) {
     });
 }
 function addEvent(event) {
-    return new Promise((resolve, rej) => {
-        conn_js_1.conn.query('INSERT INTO evenement (title,description,created_at) VALUES (?,?,?)', [event.title, event.description, event.created_at], (err, res) => {
+    return new Promise((resolve, reject) => {
+        conn_js_1.conn.query('INSERT INTO evenement (title, description, all_day, start_at, finish_at, created_at) VALUES (?, ?, ?, ?, ?, ?)', [event.title, event.description, event.all_day, event.start_at, event.finish_at, event.created_at], (err, res) => {
             if (err)
-                rej(err);
+                reject(err);
             else
                 resolve(res);
         });

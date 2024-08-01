@@ -10,7 +10,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 electron_1.contextBridge.exposeInMainWorld('electron', {
-    ajout: (title, description, created_at) => electron_1.ipcRenderer.invoke('ajout-event', { title, description, created_at }),
+    ajout: (title, description, allDay, start_at, finish_at, created_at) => electron_1.ipcRenderer.invoke('ajout-event', {
+        title, description, allDay, start_at, finish_at, created_at
+    }),
     getAll: () => electron_1.ipcRenderer.invoke('get-all-event'),
-    deleteEvent: (id, deleted_at) => electron_1.ipcRenderer.invoke('delete-event', { id, deleted_at })
+    deleteEvent: (id, deleted_at) => electron_1.ipcRenderer.invoke('delete-event', {
+        id, deleted_at
+    })
 });

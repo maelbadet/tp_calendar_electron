@@ -1,11 +1,9 @@
-import { BrowserWindow, Menu } from "electron"
-import { join } from 'node:path'
-import { menuListeTpl } from "../menuTpl/menuListes"
+import { BrowserWindow, Menu } from 'electron';
+import { join } from 'node:path';
+import { menuListeTpl } from '../menuTpl/menuListes';
 
-export function createWindow(parent?: BrowserWindow, princ: boolean = true): BrowserWindow {
+export function createWindow(parent?: BrowserWindow, page: string = 'index.html'): BrowserWindow {
     // Create the browser window.
-    const modal = !princ
-
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
@@ -15,24 +13,22 @@ export function createWindow(parent?: BrowserWindow, princ: boolean = true): Bro
         maxWidth: 1024,
         minimizable: false,
         parent: parent,
-        // modal: modal,
         webPreferences: {
             preload: join(__dirname, '../preload.js')
         }
-    })
+    });
+
     mainWindow.webContents.openDevTools()
-    if (princ) {
-        const mainMenu = Menu.buildFromTemplate(menuListeTpl)
-        mainWindow.setMenu(mainMenu)
-        // and load the index.html of the app.
-        mainWindow.loadFile('./pages/index.html')
-    }
-    else {
-        mainWindow.loadFile('./pages/addEvent.html')
-        mainWindow.removeMenu()
+    // Load the appropriate page
+    mainWindow.loadFile(`./pages/${page}`);
+
+    // Set the menu if the page is index.html
+    if (page === 'index.html') {
+        const mainMenu = Menu.buildFromTemplate(menuListeTpl);
+        mainWindow.setMenu(mainMenu);
+    } else {
+        mainWindow.removeMenu();
     }
 
-    // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
-    return mainWindow
+    return mainWindow;
 }
