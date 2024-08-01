@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier Electron</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/modal.css">
 </head>
 
 <body>
@@ -32,10 +33,24 @@
             </tbody>
         </table>
     </div>
-    <div id="event-list" class="event-list">
-        <!-- Les événements seront affichés ici -->
+
+    <!-- Modal HTML -->
+    <div id="event-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Événements du jour</h2>
+            <ul id="event-list"></ul>
+            <p id="no-events-message" style="display: none;">Aucun événement créé pour ce jour.</p>
+            <div id="event-actions" style="display: none;">
+                <button id="create-event-btn">Créer un événement</button>
+                <button id="edit-event-btn">Modifier l'événement</button>
+                <button id="delete-event-btn">Supprimer l'événement</button>
+            </div>
+        </div>
     </div>
-    <script src="../dist/front/event/renderer.js"></script>
+
+
+    <script type="module" src="../dist/front/event/renderer.js" defer></script>
 </body>
 
 </html>

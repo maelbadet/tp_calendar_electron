@@ -1,4 +1,3 @@
-"use strict";
 /**
  * The preload script runs before `index.html` is loaded
  * in the renderer. It has access to web APIs as well as

@@ -39,5 +39,8 @@
 - npm install sqlite3
 - npm install typeorm reflect-metadata
 - npm install @fullcalendar/core @fullcalendar/daygrid @fullcalendar/interaction @types/fullcalendar
-- npm run build
+
+## pour le lancement du projet, bien faire dans l'ordre
+- npm run build:back
+- npm run build:front
 - npm start

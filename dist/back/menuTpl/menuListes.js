@@ -2,14 +2,25 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.menuListeTpl = void 0;
 const createWindow_1 = require("../utils/createWindow");
-const windows_1 = require("../utils/windows");
 exports.menuListeTpl = [
     {
-        label: "Fichier",
+        label: "Accueil",
+        click: () => (0, createWindow_1.createWindow)(undefined, 'index.html') // redirection vers la page d'accueil
+    },
+    {
+        label: "Evenement",
         submenu: [
             {
-                label: "Ajout",
-                click: () => (0, createWindow_1.createWindow)(windows_1.windows[0], false)
+                label: "Ajouter",
+                click: () => (0, createWindow_1.createWindow)(undefined, 'addEvent.html')
+            },
+            {
+                label: "Modifier",
+                click: () => (0, createWindow_1.createWindow)(undefined, 'editEvent.html')
+            },
+            {
+                label: "Supprimer",
+                click: () => (0, createWindow_1.createWindow)(undefined, 'deleteEvent.html')
             },
             {
                 type: "separator"
@@ -19,5 +30,9 @@ exports.menuListeTpl = [
                 role: "quit"
             }
         ]
+    },
+    {
+        label: "Quitter",
+        role: "quit"
     }
 ];

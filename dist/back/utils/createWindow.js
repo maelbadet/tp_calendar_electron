@@ -4,9 +4,8 @@ exports.createWindow = createWindow;
 const electron_1 = require("electron");
 const node_path_1 = require("node:path");
 const menuListes_1 = require("../menuTpl/menuListes");
-function createWindow(parent, princ = true) {
+function createWindow(parent, page = 'index.html') {
     // Create the browser window.
-    const modal = !princ;
     const mainWindow = new electron_1.BrowserWindow({
         width: 800,
         height: 600,
@@ -16,23 +15,20 @@ function createWindow(parent, princ = true) {
         maxWidth: 1024,
         minimizable: false,
         parent: parent,
-        // modal: modal,
         webPreferences: {
             preload: (0, node_path_1.join)(__dirname, '../preload.js')
         }
     });
     mainWindow.webContents.openDevTools();
-    if (princ) {
+    // Load the appropriate page
+    mainWindow.loadFile(`./pages/${page}`);
+    // Set the menu if the page is index.html
+    if (page === 'index.html') {
         const mainMenu = electron_1.Menu.buildFromTemplate(menuListes_1.menuListeTpl);
         mainWindow.setMenu(mainMenu);
-        // and load the index.html of the app.
-        mainWindow.loadFile('./pages/index.html');
     }
     else {
-        mainWindow.loadFile('./pages/addEvent.html');
         mainWindow.removeMenu();
     }
-    // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
     return mainWindow;
 }

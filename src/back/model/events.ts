@@ -25,16 +25,18 @@ export function getEventById(id: number) {
 }
 
 export function addEvent(event: iEvent) {
-    return new Promise((resolve, rej) => {
-        conn.query('INSERT INTO evenement (title,description,created_at) VALUES (?,?,?)',
-            [event.title, event.description, event.created_at],
+    return new Promise((resolve, reject) => {
+        conn.query(
+            'INSERT INTO evenement (title, description, all_day, start_at, finish_at, created_at) VALUES (?, ?, ?, ?, ?, ?)',
+            [event.title, event.description, event.all_day, event.start_at, event.finish_at, event.created_at],
             (err, res) => {
-                if (err) rej(err)
-                else resolve(res)
-
-            })
-    })
+                if (err) reject(err);
+                else resolve(res);
+            }
+        );
+    });
 }
+
 
 export function updateEvent(event: iEvent) {
     return new Promise((resolve, rej) => {

@@ -1,42 +1,27 @@
 {
-  "name": "calendar_electron_hilarion_badet",
+  "name": "electron-quick-start",
   "version": "1.0.0",
-  "description": "projet calendrier en electron realiser par Alan Hilarion et Badet Mael",
-  "main": "dist/back/main.js",
+  "description": "A minimal Electron application",
+  "main": "./dist/back/main.js",
   "scripts": {
-    "start": "npm run build && electron .",
-    "watch": "tsc -w",
-    "build": "tsc && npm run copy-html",
-    "copy-html": "copyfiles -u 1 src/*.html dist/"
+    "build:back": "tsc",
+    "build:front": "tsc --project tsconfig-front.json",
+    "start": "electron ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "copyfiles": "^2.4.1",
-    "css-loader": "^4.3.0",
-    "electron": "^31.3.1",
-    "electron-reload": "^2.0.0-alpha.1",
-    "html-webpack-plugin": "^4.5.0",
-    "style-loader": "^2.0.0",
-    "ts-loader": "^8.0.7",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.4",
-    "webpack": "^5.3.0",
-    "webpack-cli": "^4.1.0"
+    "electron": "^31.3.0"
   },
   "dependencies": {
-    "@fullcalendar/core": "^6.1.15",
-    "@fullcalendar/daygrid": "^6.1.15",
-    "@fullcalendar/interaction": "^6.1.15",
-    "@fullcalendar/list": "^6.1.10",
-    "@fullcalendar/timegrid": "^6.1.10",
-    "@types/fullcalendar": "^3.8.0",
-    "fullcalendar": "^6.1.15",
-    "mysql2": "^3.11.0",
-    "reflect-metadata": "^0.2.2",
-    "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.20"
+    "mysql2": "^3.11.0"
   }
 }
