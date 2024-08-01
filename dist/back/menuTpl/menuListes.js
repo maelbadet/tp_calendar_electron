@@ -21,13 +21,6 @@ exports.menuListeTpl = [
             {
                 label: "Supprimer",
                 click: () => (0, createWindow_1.createWindow)(undefined, 'deleteEvent.html')
-            },
-            {
-                type: "separator"
-            },
-            {
-                label: "Quitter",
-                role: "quit"
             }
         ]
     },

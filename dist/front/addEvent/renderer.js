@@ -13,7 +13,6 @@ if (btnAjout) {
             const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
             if (allDay) {
                 if (inpStart.value) {
-                    // Définir l'heure de fin à 23h59:59 si "Toute la journée" est sélectionné
                     const start = new Date(inpStart.value).toISOString().slice(0, 19).replace('T', ' ');
                     const finish = new Date(inpStart.value);
                     finish.setHours(23, 59, 59);
@@ -25,7 +24,6 @@ if (btnAjout) {
                 }
             }
             else {
-                // Vérifier que les champs de début et de fin sont remplis
                 if (inpStart.value && inpFinish.value) {
                     const start = new Date(inpStart.value).toISOString().slice(0, 19).replace('T', ' ');
                     const finish = new Date(inpFinish.value).toISOString().slice(0, 19).replace('T', ' ');

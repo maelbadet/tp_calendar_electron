@@ -2,7 +2,7 @@ const toDateString = (date) => date.toISOString().split('T')[0];
 function afficherEvenementsDuJour(date) {
     window.electron.getAll().then((events) => {
         const eventsForDate = events.filter(event => {
-            if (event.start_at) {
+            if (event.start_at && event.deleted_at === null) {
                 const eventDate = new Date(event.start_at);
                 return toDateString(eventDate) === toDateString(date);
             }
@@ -13,8 +13,6 @@ function afficherEvenementsDuJour(date) {
         const noEventsMessage = document.getElementById('no-events-message');
         const modal = document.getElementById('event-modal');
         const createEventBtn = document.getElementById('create-event-btn');
-        const editEventBtn = document.getElementById('edit-event-btn');
-        const deleteEventBtn = document.getElementById('delete-event-btn');
         const eventActions = document.getElementById('event-actions');
         if (eventList && modal && noEventsMessage && eventActions) {
             eventList.innerHTML = '';
@@ -22,10 +20,29 @@ function afficherEvenementsDuJour(date) {
                 eventsForDate.forEach(event => {
                     const li = document.createElement('li');
                     li.textContent = `${event.title} - ${event.description}`;
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Modifier';
+                    editBtn.onclick = () => {
+                        window.location.href = `editEvent.html?id=${event.id}`;
+                    };
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Supprimer';
+                    deleteBtn.onclick = () => {
+                        if (confirm('Êtes-vous sûr de vouloir supprimer cet événement ?')) {
+                            window.electron.deleteEvent(event.id, new Date()).then(() => {
+                            }).catch(error => {
+                                console.error('Erreur lors de la suppression de l\'événement : ', error);
+                            });
+                        }
+                    };
+                    const btnContainer = document.createElement('div');
+                    btnContainer.appendChild(editBtn);
+                    btnContainer.appendChild(deleteBtn);
+                    li.appendChild(btnContainer);
                     eventList.appendChild(li);
                 });
                 noEventsMessage.style.display = 'none';
-                eventActions.style.display = 'block';
+                eventActions.style.display = 'none';
             }
             else {
                 noEventsMessage.style.display = 'block';
@@ -33,12 +50,6 @@ function afficherEvenementsDuJour(date) {
             }
             createEventBtn.onclick = () => {
                 window.location.href = 'addEvent.html';
-            };
-            editEventBtn.onclick = () => {
-                window.location.href = 'editEvent.html';
-            };
-            deleteEventBtn.onclick = () => {
-                window.location.href = 'deleteEvent.html';
             };
             modal.style.display = 'block';
         }

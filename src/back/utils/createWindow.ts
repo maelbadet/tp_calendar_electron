@@ -3,7 +3,6 @@ import { join } from 'node:path';
 import { menuListeTpl } from '../menuTpl/menuListes';
 
 export function createWindow(parent?: BrowserWindow, page: string = 'index.html'): BrowserWindow {
-    // Create the browser window.
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
@@ -19,10 +18,8 @@ export function createWindow(parent?: BrowserWindow, page: string = 'index.html'
     });
 
     mainWindow.webContents.openDevTools()
-    // Load the appropriate page
     mainWindow.loadFile(`./pages/${page}`);
 
-    // Set the menu if the page is index.html
     if (page === 'index.html') {
         const mainMenu = Menu.buildFromTemplate(menuListeTpl);
         mainWindow.setMenu(mainMenu);
