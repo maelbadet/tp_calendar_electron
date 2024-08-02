@@ -1,13 +1,13 @@
-import { iEvent } from "./interfaces/ievent.js"
+import { iEvent } from "./interfaces/ievent.js";
 
 export { }
 declare global {
     interface Window {
         "electron": {
-            ajout: (title: string, description: string, allDay: boolean, start_at: String | null, finish_at: String | null, created_at: String) => Promise<string>
-            getAll: () => Promise<iEvent[]>
+            ajout: (title: string, description: string, allDay: boolean, start_at: string | null, finish_at: string | null, created_at: string) => Promise<string>,
+            ajout_ics: (title: string, description: string, allDay: boolean, start_at: string | null, finish_at: string | null, created_at: string) => Promise<string>,
+            getAll: () => Promise<iEvent[]>,
             deleteEvent: (id: number, deleted_at: Date) => Promise<string>
         }
     }
 }
-

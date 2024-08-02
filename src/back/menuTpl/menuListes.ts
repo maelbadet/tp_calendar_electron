@@ -24,6 +24,19 @@ export const menuListeTpl: any = [
         ]
     },
     {
+        label: "ics",
+        submenu: [
+            {
+                label: "exporter",
+                click: () => createWindow(undefined, 'exportIcs.html')
+            },
+            {
+                label: "importer",
+                click: () => createWindow(undefined, 'importIcs.html')
+            },
+        ]
+    },
+    {
         label: "Quitter",
         role: "quit"
     }

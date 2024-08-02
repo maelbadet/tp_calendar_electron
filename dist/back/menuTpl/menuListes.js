@@ -25,6 +25,19 @@ exports.menuListeTpl = [
         ]
     },
     {
+        label: "ics",
+        submenu: [
+            {
+                label: "exporter",
+                click: () => (0, createWindow_1.createWindow)(undefined, 'exportIcs.html')
+            },
+            {
+                label: "importer",
+                click: () => (0, createWindow_1.createWindow)(undefined, 'importIcs.html')
+            },
+        ]
+    },
+    {
         label: "Quitter",
         role: "quit"
     }

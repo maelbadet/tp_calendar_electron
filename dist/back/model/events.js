@@ -5,6 +5,7 @@ exports.getEventById = getEventById;
 exports.addEvent = addEvent;
 exports.updateEvent = updateEvent;
 exports.deleteEvent = deleteEvent;
+exports.selectLastId = selectLastId;
 const conn_js_1 = require("./conn.js");
 function getAllEvent() {
     return new Promise((resolve, rej) => {
@@ -53,6 +54,19 @@ function deleteEvent(event) {
                 rej(err);
             else
                 resolve(res);
+        });
+    });
+}
+function selectLastId() {
+    return new Promise((resolve, reject) => {
+        conn_js_1.conn.query('SELECT id FROM evenement ORDER BY id DESC LIMIT 1', (err, results) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                const lastId = results[0]?.id ?? null;
+                resolve(lastId);
+            }
         });
     });
 }

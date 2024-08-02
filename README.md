@@ -30,15 +30,7 @@
 - sauvegarde ics 2pts
 
 ## initialisation avec npm : 
-- npm install --save-dev electron
-- npm install --save-dev typescript
-- npm install --save-dev @types/node
-- npm install --save-dev ts-node
-- npm install --save-dev electron-reload
-- npm install --save-dev copyfiles
-- npm install sqlite3
-- npm install typeorm reflect-metadata
-- npm install @fullcalendar/core @fullcalendar/daygrid @fullcalendar/interaction @types/fullcalendar
+- npm install
 
 ## pour le lancement du projet, bien faire dans l'ordre
 - npm run build:back
