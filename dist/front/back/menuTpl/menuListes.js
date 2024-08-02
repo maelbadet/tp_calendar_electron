@@ -1,6 +1,5 @@
 import { createWindow } from "../utils/createWindow";
-
-export const menuListeTpl: any = [
+export const menuListeTpl = [
     {
         label: "Accueil",
         click: () => createWindow(undefined, 'index.html') // redirection vers la page d'accueil

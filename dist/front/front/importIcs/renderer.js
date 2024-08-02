@@ -1,36 +1,5 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-import { selectLastId } from '../../back/model/events.js';
 const importInput = document.getElementById('import-input');
-let currentId;
-function initializeCurrentId() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const result = yield selectLastId();
-            console.log(result);
-            if (typeof result === 'number') {
-                currentId = result + 1;
-            }
-            else if (result === null) {
-                currentId = 1;
-            }
-            else {
-                throw new Error('Unexpected result from selectLastId');
-            }
-        }
-        catch (error) {
-            console.error('Failed to get the last ID:', error);
-            currentId = 1;
-        }
-    });
-}
+let currentId = 0;
 function generateUniqueId() {
     return currentId++;
 }
@@ -75,9 +44,8 @@ function parseICSContent(icsContent) {
     return events;
 }
 if (importInput) {
-    importInput.addEventListener('change', (event) => __awaiter(void 0, void 0, void 0, function* () {
+    importInput.addEventListener('change', (event) => {
         var _a;
-        yield initializeCurrentId();
         const file = (_a = importInput.files) === null || _a === void 0 ? void 0 : _a[0];
         if (file) {
             const reader = new FileReader();
@@ -99,5 +67,6 @@ if (importInput) {
             };
             reader.readAsText(file);
         }
-    }));
+    });
 }
+export {};

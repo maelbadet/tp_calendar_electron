@@ -33,7 +33,6 @@ if (btnAjout) {
                         alert("La date de fin doit être postérieure à la date de début.");
                         return;
                     }
-
                     window.electron.ajout(title, description, false, start, finish, createdAt);
                 } else {
                     alert("Veuillez remplir les heures de début et de fin.");
