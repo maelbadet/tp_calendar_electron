@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createWindow = createWindow;
-const electron_1 = require("electron");
-const node_path_1 = require("node:path");
-const menuListes_1 = require("../menuTpl/menuListes");
-function createWindow(parent, page = 'index.html', args) {
-    const mainWindow = new electron_1.BrowserWindow({
+import { BrowserWindow, Menu } from 'electron';
+import { join } from 'node:path';
+import { menuListeTpl } from '../menuTpl/menuListes';
+export function createWindow(parent, page = 'index.html', args) {
+    const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         minHeight: 400,
@@ -15,7 +12,7 @@ function createWindow(parent, page = 'index.html', args) {
         minimizable: false,
         parent: parent,
         webPreferences: {
-            preload: (0, node_path_1.join)(__dirname, '../preload.js'),
+            preload: join(__dirname, '../preload.js'),
             contextIsolation: true,
             nodeIntegration: false
         }
@@ -26,7 +23,7 @@ function createWindow(parent, page = 'index.html', args) {
         mainWindow.removeMenu();
     }
     else {
-        const mainMenu = electron_1.Menu.buildFromTemplate(menuListes_1.menuListeTpl);
+        const mainMenu = Menu.buildFromTemplate(menuListeTpl);
         mainWindow.setMenu(mainMenu);
     }
     if (args) {

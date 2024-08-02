@@ -1,10 +1,11 @@
+import { createWindow } from "../../back/utils/createWindow.js";
 const toDateString = (date) => date.toISOString().split('T')[0];
 function afficherEvenementsDuJour(date) {
     window.electron.getAll().then((events) => {
         const eventsForDate = events.filter(event => {
             if (event.start_at && event.deleted_at === null) {
                 const eventDate = new Date(event.start_at);
-                return toDateString(eventDate) === toDateString(date);
+                return eventDate.toDateString() === date.toDateString();
             }
             return false;
         });
@@ -80,7 +81,7 @@ export function renderCalendar(month, year) {
                 const cell = document.createElement('td');
                 const cellDate = new Date(year, month, date);
                 cell.appendChild(document.createTextNode(date.toString()));
-                cell.addEventListener('click', () => afficherEvenementsDuJour(cellDate));
+                cell.addEventListener('click', () => createWindow(undefined, 'showEvent.html'));
                 row.appendChild(cell);
                 date++;
             }

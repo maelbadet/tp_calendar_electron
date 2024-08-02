@@ -1,62 +1,4 @@
 const toDateString = (date) => date.toISOString().split('T')[0];
-function afficherEvenementsDuJour(date) {
-    window.electron.getAll().then((events) => {
-        const eventsForDate = events.filter(event => {
-            if (event.start_at && event.deleted_at === null) {
-                const eventDate = new Date(event.start_at);
-                return toDateString(eventDate) === toDateString(date);
-            }
-            return false;
-        });
-        console.log("Événements pour la date : ", eventsForDate);
-        const eventList = document.getElementById('event-list');
-        const noEventsMessage = document.getElementById('no-events-message');
-        const modal = document.getElementById('event-modal');
-        const createEventBtn = document.getElementById('create-event-btn');
-        const eventActions = document.getElementById('event-actions');
-        if (eventList && modal && noEventsMessage && eventActions) {
-            eventList.innerHTML = '';
-            if (eventsForDate.length > 0) {
-                eventsForDate.forEach(event => {
-                    const li = document.createElement('li');
-                    li.textContent = `${event.title} - ${event.description}`;
-                    const editBtn = document.createElement('button');
-                    editBtn.textContent = 'Modifier';
-                    editBtn.onclick = () => {
-                        window.location.href = `editEvent.html?id=${event.id}`;
-                    };
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.textContent = 'Supprimer';
-                    deleteBtn.onclick = () => {
-                        if (confirm('Êtes-vous sûr de vouloir supprimer cet événement ?')) {
-                            window.electron.deleteEvent(event.id, new Date()).then(() => {
-                            }).catch(error => {
-                                console.error('Erreur lors de la suppression de l\'événement : ', error);
-                            });
-                        }
-                    };
-                    const btnContainer = document.createElement('div');
-                    btnContainer.appendChild(editBtn);
-                    btnContainer.appendChild(deleteBtn);
-                    li.appendChild(btnContainer);
-                    eventList.appendChild(li);
-                });
-                noEventsMessage.style.display = 'none';
-                eventActions.style.display = 'none';
-            }
-            else {
-                noEventsMessage.style.display = 'block';
-                eventActions.style.display = 'none';
-            }
-            createEventBtn.onclick = () => {
-                window.location.href = 'addEvent.html';
-            };
-            modal.style.display = 'block';
-        }
-    }).catch(error => {
-        console.error("Erreur lors de la récupération des événements : ", error);
-    });
-}
 export function renderCalendar(month, year) {
     const calendarBody = document.getElementById('calendar-body');
     if (!calendarBody)
@@ -80,7 +22,7 @@ export function renderCalendar(month, year) {
                 const cell = document.createElement('td');
                 const cellDate = new Date(year, month, date);
                 cell.appendChild(document.createTextNode(date.toString()));
-                cell.addEventListener('click', () => afficherEvenementsDuJour(cellDate));
+                cell.addEventListener('click', () => window.electron.openEventsForDate(cellDate.toISOString()));
                 row.appendChild(cell);
                 date++;
             }
