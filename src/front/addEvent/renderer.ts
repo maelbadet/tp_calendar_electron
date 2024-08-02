@@ -34,13 +34,6 @@ if (btnAjout) {
                         return;
                     }
 
-                    console.log('Titre : ' + title);
-                    console.log('Description : ' + description);
-                    console.log('Toute la journée : ' + allDay);
-                    console.log('Commence le : ' + start);
-                    console.log('Fini le : ' + finish);
-                    console.log('Créé le : ' + createdAt);
-
                     window.electron.ajout(title, description, false, start, finish, createdAt);
                 } else {
                     alert("Veuillez remplir les heures de début et de fin.");

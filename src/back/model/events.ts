@@ -1,4 +1,4 @@
-import { QueryError } from 'mysql2'
+import { QueryError, RowDataPacket } from 'mysql2'
 import { iEvent } from '../../front/interfaces/ievent.js'
 import { conn } from './conn.js'
 
@@ -59,4 +59,17 @@ export function deleteEvent(event: iEvent) {
                 else resolve(res)
             })
     })
+}
+
+export function selectLastId(): Promise<number | null | QueryError> {
+    return new Promise((resolve, reject) => {
+        conn.query('SELECT id FROM evenement ORDER BY id DESC LIMIT 1', (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                const lastId = (results as RowDataPacket[])[0]?.id ?? null;
+                resolve(lastId);
+            }
+        });
+    });
 }
