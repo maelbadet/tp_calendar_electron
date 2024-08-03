@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import { iEvent } from "../front/interfaces/ievent";
 
 // Définir les types pour les fonctions exposées
@@ -12,6 +12,8 @@ interface ElectronAPI {
     receiveDateSelected: (callback: (date: string) => void) => void;
     getEventsForDate: (date: string) => Promise<iEvent[]>;
     sendEvents: (events: iEvent[]) => void;
+    updateEvent: (event: iEvent) => Promise<string>;
+    getEventById: (id: number) => Promise<iEvent>;
 }
 
 const electronAPI: ElectronAPI = {
@@ -38,7 +40,13 @@ const electronAPI: ElectronAPI = {
         ipcRenderer.invoke('get-events-for-date', date),
 
     sendEvents: (events) =>
-        ipcRenderer.send('send-events', events)
+        ipcRenderer.send('send-events', events),
+
+    updateEvent: (event) =>
+        ipcRenderer.invoke('update-event', event),
+
+    getEventById: (id) =>
+        ipcRenderer.invoke('get-event-by-id', id)
 };
 
 // Exposer les API Electron dans le monde principal
