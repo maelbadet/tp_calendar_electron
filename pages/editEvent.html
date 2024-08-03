@@ -1,14 +1,31 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/editEvent.css">
-    <title>modifier</title>
+    <title>Modifier un événement</title>
 </head>
 
 <body>
-    <h1>modifier un evenement</h1>
+    <h1>Modifier un événement</h1>
+    <form id="edit-form">
+        <input type="hidden" id="event_id">
+        <label for="title">Titre :</label>
+        <input type="text" id="title" name="title" placeholder="Entrez le nom de l'événement"><br>
+        <label for="description">Description :</label>
+        <input type="text" id="description" name="description" placeholder="Entrez la description"><br>
+        <label>
+            <input type="checkbox" id="allDay"> Toute la journée
+        </label><br>
+        <label for="start">Heure de début :</label>
+        <input type="datetime-local" id="start_at" name="start"><br>
+        <label for="finish">Heure de fin :</label>
+        <input type="datetime-local" id="finish_at" name="finish"><br>
+        <button type="button" id="update">Mettre à jour</button>
+    </form>
+    <script src="../dist/front/editEvent/renderer.js" type="module"></script>
 </body>
 
 </html>

@@ -11,7 +11,9 @@ declare global {
             receiveEvents: (callback: (data: iEvent[]) => void) => void,
             receiveDateSelected: (callback: (date: string) => void) => void,
             getEventsForDate: (date: string) => Promise<iEvent[]>,
-            sendEvents: (events: iEvent[]) => void
+            sendEvents: (events: iEvent[]) => void,
+            updateEvent: (event: iEvent) => Promise<string>,
+            getEventById: (id: number) => Promise<iEvent>
         }
     }
 }

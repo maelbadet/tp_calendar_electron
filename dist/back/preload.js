@@ -10,7 +10,9 @@ const electronAPI = {
     receiveEvents: (callback) => electron_1.ipcRenderer.on('send-events', (event, data) => callback(data)),
     receiveDateSelected: (callback) => electron_1.ipcRenderer.on('date-selected', (event, date) => callback(date)),
     getEventsForDate: (date) => electron_1.ipcRenderer.invoke('get-events-for-date', date),
-    sendEvents: (events) => electron_1.ipcRenderer.send('send-events', events)
+    sendEvents: (events) => electron_1.ipcRenderer.send('send-events', events),
+    updateEvent: (event) => electron_1.ipcRenderer.invoke('update-event', event),
+    getEventById: (id) => electron_1.ipcRenderer.invoke('get-event-by-id', id)
 };
 // Exposer les API Electron dans le monde principal
 electron_1.contextBridge.exposeInMainWorld('electron', electronAPI);
