@@ -117,7 +117,6 @@ ipcMain.on('open-events-for-date', (event, date: string) => {
             nodeIntegration: false
         }
     });
-    eventsWindow.webContents.openDevTools();
     eventsWindow.loadFile('pages/showEvent.html');
     eventsWindow.webContents.on('did-finish-load', () => {
         eventsWindow.webContents.send('date-selected', date);

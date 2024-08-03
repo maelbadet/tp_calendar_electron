@@ -28,7 +28,6 @@ export const menuListeTpl: any = [
                     if (result.response === 0) {
                         try {
                             await deleteAll();
-                            console.log('All events deleted successfully');
                             dialog.showMessageBox({
                                 type: 'info',
                                 title: 'Succès',
@@ -39,7 +38,7 @@ export const menuListeTpl: any = [
                             dialog.showErrorBox('Erreur', 'Erreur lors de la suppression de tous les événements.');
                         }
                     } else {
-                        console.log('Deletion canceled by user');
+                        alert("vous venez d'annuler la suppression des evenements");
                     }
                 }
             }
@@ -68,7 +67,7 @@ export const menuListeTpl: any = [
                     if (focusedWindow) {
                         focusedWindow.webContents.openDevTools();
                     } else {
-                        console.log('No focused window found to open DevTools.');
+                        alert('Aucune fenetre pour dev n a ete trouver.');
                     }
                 }
             }
@@ -88,7 +87,7 @@ export const menuListeTpl: any = [
             if (result.response === 0) {
                 app.quit();
             } else {
-                console.log('Quit canceled by user');
+                alert('Vous avez decider de rester sur le calendrier');
             }
         }
     }

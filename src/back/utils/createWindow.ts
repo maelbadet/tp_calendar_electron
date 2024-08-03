@@ -18,8 +18,6 @@ export function createWindow(parent?: BrowserWindow, page: string = 'index.html'
             nodeIntegration: false
         }
     });
-
-    mainWindow.webContents.openDevTools();
     mainWindow.loadFile(`./pages/${page}`);
 
     if (page !== 'index.html') {
