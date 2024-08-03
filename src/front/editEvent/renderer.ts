@@ -5,7 +5,6 @@ function fillForm(eventId: number) {
     if (window.electron) {
         window.electron.getEventById(eventId)
             .then((event) => {
-                console.log('Event details:', event);
                 if (event) {
                     eventCreatedAt = event.created_at || '';
                     (document.getElementById('event_id') as HTMLInputElement).value = event.id.toString();
@@ -38,9 +37,7 @@ document.getElementById('update')?.addEventListener('click', () => {
     const finish_at = (document.getElementById('finish_at') as HTMLInputElement).value
         ? formatDateToYYYYMMDD(new Date((document.getElementById('finish_at') as HTMLInputElement).value))
         : null;
-    const updated_at = formatDateToYYYYMMDD(new Date()); // Format YYYY-MM-DD hh:mm:ss
-
-    console.log(title);
+    const updated_at = formatDateToYYYYMMDD(new Date());
 
     if (window.electron) {
         window.electron.updateEvent({
@@ -50,7 +47,7 @@ document.getElementById('update')?.addEventListener('click', () => {
             all_day: allDay,
             start_at,
             finish_at,
-            created_at: eventCreatedAt, // Utiliser la date de création stockée
+            created_at: eventCreatedAt,
             updated_at
         })
             .then(() => {
@@ -68,7 +65,6 @@ document.getElementById('update')?.addEventListener('click', () => {
 
 const urlParams = new URLSearchParams(window.location.search);
 const eventId = parseInt(urlParams.get('id') || '0', 10);
-console.log('Event ID from URL:', eventId);
 if (eventId) {
     fillForm(eventId);
 } else {

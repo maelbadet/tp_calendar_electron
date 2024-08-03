@@ -62,19 +62,17 @@ if (importInput) {
             reader.onload = () => {
                 const icsContent = reader.result as string;
                 const events = parseICSContent(icsContent);
-                console.log('Processing events...');
 
                 if (window.electron && typeof window.electron.ajout_ics === 'function') {
                     events.forEach(event => {
                         window.electron.ajout_ics(event.title, event.description, event.all_day, event.start_at, event.finish_at, event.created_at)
-                            .then(response => console.log(response))
                             .catch(err => console.error(err));
                     });
                 } else {
                     console.error('window.electron.ajout_ics is not available');
                 }
 
-                alert('Events imported successfully');
+                alert('Events importer avec succes');
             };
             reader.readAsText(file);
         }

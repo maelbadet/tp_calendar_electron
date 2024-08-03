@@ -38,7 +38,7 @@ if (exportButton) {
             a.href = url;
             a.download = 'events.ics';
             a.click();
-
+            alert('Events exporter avec succes');
             URL.revokeObjectURL(url);
         }).catch(error => {
             console.error("Erreur lors de l'exportation des événements : ", error);
